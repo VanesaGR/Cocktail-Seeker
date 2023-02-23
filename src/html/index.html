@@ -11,9 +11,26 @@
 
   <body>
     <div class="page">
-      <include src="./partials/header.html" title="Bienvenidos a Adalab"></include>
-      <include src="./partials/main.html"></include>
-      <include src="./partials/footer.html"></include>
+      <header>
+        <h1 class="search-title">Buscador cócteles</h1>
+        <form class="search-form">
+          <input type="text" class="input-search js-input-search">
+          <input type="button" class="search-btn js-reset-btn" value="Buscar">
+          <input type="reset" class="reset-btn js-reset-brn" value="Reset">
+        </form>
+      </header>
+      <main>
+        <section>
+          <article class="favorites js-favorites">
+            <h2 class="title-favorites">Cócteles Favoritos</h2>
+            <ul class="js-ul-favorites"></ul>
+          </article>
+          <article class="cocktails js-cocktails">
+            <h2 class="title-cocktails">Cólcteles</h2>
+            <ul class="js-ul-cocktails"></ul>
+          </article>
+        </section>
+      </main>
     </div>
     <script src="./assets/js/main.js"></script>
   </body>
