@@ -1,0 +1,39 @@
+*{
+    background-color: lightgrey;
+}
+
+.search-form{
+    margin:2em;
+}
+
+.search-title{
+    color: green;
+    margin-left: 1em;
+}
+
+.search-btn, .reset-btn{
+    background-color: green;
+    color: antiquewhite;
+}
+
+.main-section{
+    margin:4em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.favorites, .cocktails{
+    border: 2px solid green;
+    width: 50%;    
+}
+
+.title-favorites, .title-cocktails {
+    text-align: center;
+    color: antiquewhite;
+    background-color: green;
+}
+
+.favorites{
+    margin-right: 1em;
+}
