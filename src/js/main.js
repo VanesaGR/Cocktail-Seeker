@@ -13,7 +13,12 @@ const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
 let listCocktailsData = []; //array para guardar los cocteles que se muestran por defecto
 let listFavoritesData = []; //array para guardar los cocteles del listado de favoritos
 
-fetchFunction('margarita');
+fetchFunction('margarita'); //usa el fetch para mostrar por defecto las margaritas
+
+window.onload = function() { //cuando carga la página mantiene la lista de favoritos pintada
+  const favoriteCocktails = JSON.parse(localStorage.getItem('favoriteCocktails')) || [];
+  renderFavorites(favoriteCocktails);
+};
 
 //Pintar cocteles
 function renderCocktails(cocktails) {
@@ -39,7 +44,6 @@ function fetchFunction(cocktailName){
         photo: drink.strDrinkThumb, //strDrikThum es la foto del coctel dentro de la API
         id: drink.idDrink //idDrink es el id del coctel dentro de la API
       }));
-      // console.log(listCocktailsData);
       renderCocktails(listCocktailsData);
     });
 }
@@ -55,27 +59,29 @@ function handleClickBtn(ev) {
 function handleResetBtn(ev){
   ev.preventDefault();
   input.value='';
+  localStorage.removeItem('favoriteCocktails');//esta línea vacía el local storage, suponiendo que lo queramos hacer
+}
+
+//funcion para que funcione el clic de favoritos
+
+function addEventToCocktail(){
+  const liElemenstList = document.querySelectorAll('.js-li-cocktail'); //todos los elementos con esa clase
+  for(const li of liElemenstList){//para todos los elementos de la lista
+    li.addEventListener('click', handleClick);
+  }
 }
 
 //función para pintar favoritos (es igual que la de por defecto solo que cambia el array que la recibe)
 function renderFavorites(cocktails) {
-  listCocktails.innerHTML='';
+  listFavorites.innerHTML='';
   for (const eachCocktail of cocktails) {
     if (eachCocktail.photo) {
-      listFavorites.innerHTML += `<liclass="js-li-cocktail" id="${eachCocktail.idDrink}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
+      listFavorites.innerHTML += `<li class="js-li-fav" id="${eachCocktail.idDrink}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
     } else {
-      listFavorites.innerHTML += `<li class="js-li-cocktail" id="${eachCocktail.idDrink}"><h3>${eachCocktail.name}</h3> <img src="
+      listFavorites.innerHTML += `<li class="js-li-fav" id="${eachCocktail.idDrink}"><h3>${eachCocktail.name}</h3> <img src="
 ./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/></li>`; //si no tiene foto te pone la seleccionada por defecto
     }
   }
-  addEventToCocktail();
-}
-
-//almacenamiento en el local storage
-const cocktailStorage=JSON.parse(localStorage.getItem('listCocktails'));
-if(cocktailStorage!==null){
-  listFavoritesData = cocktailStorage;
-  renderFavorites(listFavoritesData);
 }
 
 //guardar los favoritos
@@ -93,21 +99,13 @@ function handleClick(ev){
   //comprobación de existencia del favorito
   if(indexCocktail===-1){
     listFavoritesData.push(selectedCocktail); //guardado en el listado con push
+    localStorage.setItem('favoriteCocktails', JSON.stringify(listFavoritesData));//lo mete en el local storage
   }else{
     listFavoritesData.splice(indexCocktail, 1); //elimina un elemento a partir de una posicion
+    localStorage.setItem('favoriteCocktails', JSON.stringify(listFavoritesData)); // Almacena el array actualizado en el almacenamiento local
   }
-
   renderFavorites(listFavoritesData); //pinta favoritos
   renderCocktails(listCocktailsData);
-}
-
-//funcion para que funcione el clic de favoritos
-
-function addEventToCocktail(){
-  const liElemenstList = document.querySelectorAll('.js-li-cocktail'); //todos los elementos con esa clase
-  for(const li of liElemenstList){//para todos los elementos de la lista
-    li.addEventListener('click', handleClick);
-  }
 }
 
 //EVENTOS
