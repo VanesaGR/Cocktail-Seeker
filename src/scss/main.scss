@@ -27,7 +27,6 @@
 .favorites, .cocktails{
     border: 2px solid green;
     width: 50%;    
-    cursor: pointer;
 }
 
 .title-favorites, .title-cocktails {
@@ -48,4 +47,28 @@
     list-style: none;
     padding-left: 2em;
     padding-bottom: 2em;
+}
+
+.ul-cocktails, .ul-favorites{ //no entra bien
+    margin-top: 20px;
+}
+
+.close-icon{
+    width: 5%;
+    margin-left: 2px;
+}
+
+.selected{
+    background-color: green;
+    color: orangered;
+    padding: 10px;
+}
+
+.selectedTitle{
+    background-color:green;
+}
+
+.li-cocktails:focus{//deberia aplicar estos colores al hacer clic en dada elemento de la lista
+    background-color:orangered;
+    color: green;
 }

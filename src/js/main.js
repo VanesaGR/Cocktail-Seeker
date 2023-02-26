@@ -7,6 +7,7 @@ const btnSearch  = document.querySelector('.js-search-btn');
 const btnReset = document.querySelector('.js-reset-btn');
 const listCocktails = document.querySelector('.js-cocktails');
 const listFavorites = document.querySelector('.js-favorites');
+const closeIcon = document.querySelector('.js-close-icon');
 
 const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
 
@@ -25,9 +26,9 @@ function renderCocktails(cocktails) {
   listCocktails.innerHTML='';
   for (const eachCocktail of cocktails) {
     if (eachCocktail.photo) {
-      listCocktails.innerHTML += `<li class="js-li-cocktail" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
+      listCocktails.innerHTML += `<li class="js-li-cocktail li-coktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
     } else {
-      listCocktails.innerHTML += `<li class="js-li-cocktail" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="
+      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="
 ./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/></li>`; //si no tiene foto te pone la seleccionada por defecto
     }
   }
@@ -41,7 +42,7 @@ function fetchFunction(cocktailName){
     .then(data =>{
       listCocktailsData = data.drinks.map((drink) => ({//margaritas es el nombre que le ponemos por defecto ya que son solo margaritas lo que vamos a mostrar al iniciar la pagina
         name: drink.strDrink, //strDrink es el nombre del coctel dentro de la API
-        photo: drink.strDrinkThumb, //strDrikThum es la foto del coctel dentro de la API
+        photo: drink.strDrinkThumb, //strDrinkThumb es la foto del coctel dentro de la API
         id: drink.idDrink //idDrink es el id del coctel dentro de la API
       }));
       renderCocktails(listCocktailsData);
@@ -76,17 +77,16 @@ function renderFavorites(cocktails) {
   listFavorites.innerHTML='';
   for (const eachCocktail of cocktails) {
     if (eachCocktail.photo) {
-      listFavorites.innerHTML += `<li class="js-li-fav" id="${eachCocktail.idDrink}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
+      listFavorites.innerHTML += `<li class="js-li-fav selected" id="${eachCocktail.idDrink}"><h3 class="selectedTitle">${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/><img src="./assets/images/circulo-cruzado.png" class="close-icon js-close-icon"></li>`;
     } else {
-      listFavorites.innerHTML += `<li class="js-li-fav" id="${eachCocktail.idDrink}"><h3>${eachCocktail.name}</h3> <img src="
-./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/></li>`; //si no tiene foto te pone la seleccionada por defecto
+      listFavorites.innerHTML += `<li class="js-li-fav selected" id="${eachCocktail.idDrink}"><h3 class="selectedTitle">${eachCocktail.name}</h3> <img src="
+./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/><img src="./assets/images/circulo-cruzado.png" class="close-icon js-close-icon"></li>`; //si no tiene foto te pone la seleccionada por defecto
     }
   }
 }
 
 //guardar los favoritos
 function handleClick(ev){
-
   ev.currentTarget.classList.toggle('selected');//si tiene esa clase, se la quitas y si no, se la pones
   //busca ese id en el listado de cocteles el coctel que tiene el id del current Target
   const idSelected = ev.currentTarget.id;
@@ -108,9 +108,27 @@ function handleClick(ev){
   renderCocktails(listCocktailsData);
 }
 
+//función para que al hacer clic en el icono de la x borre el elemento de favoritos (se parece mucho a parte de la funcion anterior)
+
+function closeFavs(ev){
+  const idClose = ev.currentTarget.id;
+  //con el findIndex buscamos la posición del elemento que nos interesa
+  const indexCocktail = listFavoritesData.findIndex(eachCocktail=> eachCocktail.id===idClose);
+
+  listFavoritesData.splice(indexCocktail, 1); //elimina un elemento a partir de una posicion
+
+  renderFavorites(listFavoritesData); //pinta los favoritos
+  renderCocktails(listCocktailsData); //pinta los cocteles
+
+  localStorage.removeItem('cocktails');//quita el item del local storage
+}
+
+
 //EVENTOS
 
 //escucha del botón de búsqueda
 btnSearch.addEventListener('click', handleClickBtn);
 //escucha del botón reset
 btnReset.addEventListener('click', handleResetBtn);
+//escucha sobre el icono de favoritos para quitar el item
+closeIcon.addEventListener('click',closeFavs);
