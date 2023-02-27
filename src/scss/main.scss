@@ -26,7 +26,7 @@
 
 .favorites, .cocktails{
     border: 2px solid green;
-    width: 50%;    
+    width: 50%;  
 }
 
 .title-favorites, .title-cocktails {
@@ -49,10 +49,6 @@
     padding-bottom: 2em;
 }
 
-.ul-cocktails, .ul-favorites{ //no entra bien
-    margin-top: 20px;
-}
-
 .close-icon{
     width: 5%;
     margin-left: 2px;
@@ -60,10 +56,19 @@
 
 .selected{
     background-color: green;
-    color: orangered;
+    color: lightcoral;
     padding: 10px;
 }
 
 .selectedTitle{
     background-color:green;
+}
+
+.rightCocktails{
+    background-color:lightcoral;
+    color: green;
+}
+
+.rightCocktails h3{
+    background-color: lightcoral;
 }

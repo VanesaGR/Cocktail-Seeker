@@ -26,9 +26,9 @@ function renderCocktails(cocktails) {
   listCocktails.innerHTML='';
   for (const eachCocktail of cocktails) {
     if (eachCocktail.photo) {
-      listCocktails.innerHTML += `<li class="js-li-cocktail li-coktails rightCocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
+      listCocktails.innerHTML += `<li class="js-li-cocktail li-coktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
     } else {
-      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails rightCocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="
+      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="
 ./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/></li>`; //si no tiene foto te pone la seleccionada por defecto
     }
   }
@@ -89,9 +89,8 @@ function renderFavorites(cocktails) {
 
 //guardar los favoritos
 function handleClick(ev){
-  ev.currentTarget.classList.toggle('selected');//si tiene esa clase, se la quitas y si no, se la pones
-  //busca ese id en el listado de cocteles el coctel que tiene el id del current Target
   const idSelected = ev.currentTarget.id;
+  ev.currentTarget.classList.toggle('rightCocktails');
   //find devuelve el primer elemento que cumple una condición
   const selectedCocktail = listCocktailsData.find(cocktail=> cocktail.id===idSelected);
 
