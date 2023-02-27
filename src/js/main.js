@@ -5,8 +5,8 @@
 const input = document.querySelector('.js-input');
 const btnSearch  = document.querySelector('.js-search-btn');
 const btnReset = document.querySelector('.js-reset-btn');
-const listCocktails = document.querySelector('.js-cocktails');
-const listFavorites = document.querySelector('.js-favorites');
+const listCocktails = document.querySelector('.js-ul-cocktails');
+const listFavorites = document.querySelector('.js-ul-favorites');
 
 const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
 

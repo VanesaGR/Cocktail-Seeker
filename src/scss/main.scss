@@ -26,7 +26,7 @@
 
 .favorites, .cocktails{
     border: 2px solid green;
-    width: 50%;  
+    width: 50%; 
 }
 
 .title-favorites, .title-cocktails {
@@ -37,6 +37,10 @@
 
 .favorites{
     margin-right: 1em;
+}
+
+.ul-favorites, .ul-cocktails{
+    margin-right: 2em;
 }
 
 .imgCocktail{
@@ -52,6 +56,7 @@
 .close-icon{
     width: 5%;
     margin-left: 2px;
+    background-color: green;
 }
 
 .selected{
