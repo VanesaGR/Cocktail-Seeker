@@ -26,7 +26,7 @@ function renderCocktails(cocktails) {
   listCocktails.innerHTML='';
   for (const eachCocktail of cocktails) {
     if (eachCocktail.photo) {
-      listCocktails.innerHTML += `<li class="js-li-cocktail li-coktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
+      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
     } else {
       listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="
 ./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/></li>`; //si no tiene foto te pone la seleccionada por defecto
@@ -59,8 +59,15 @@ function handleClickBtn(ev) {
 //funcion para el boton de reset
 function handleResetBtn(ev){
   ev.preventDefault();
-  input.value='';
-  localStorage.removeItem('favoriteCocktails');//esta línea vacía el local storage, suponiendo que lo queramos hacer
+  listFavorites.innerHTML='';
+
+  //este for recorreria el listado de los cocteles y quitaria la clase al que la tuviera
+  const elementsList = document.querySelectorAll('.li-cocktails');
+  for (let i = 0; i < elementsList.length; i++) {
+    elementsList[i].classList.remove('rightCocktails');
+  }
+
+  localStorage.clear();//esta línea vacia local storage
 }
 
 //funcion para que funcione el clic de favoritos
@@ -90,7 +97,7 @@ function renderFavorites(cocktails) {
 //guardar los favoritos
 function handleClick(ev){
   const idSelected = ev.currentTarget.id;
-  ev.currentTarget.classList.toggle('rightCocktails');
+  ev.currentTarget.classList.toggle('rightCocktails');//si no tiene la clase se la pone y si la tiene, se la quita
   //find devuelve el primer elemento que cumple una condición
   const selectedCocktail = listCocktailsData.find(cocktail=> cocktail.id===idSelected);
 
