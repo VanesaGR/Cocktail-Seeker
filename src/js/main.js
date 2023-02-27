@@ -7,7 +7,6 @@ const btnSearch  = document.querySelector('.js-search-btn');
 const btnReset = document.querySelector('.js-reset-btn');
 const listCocktails = document.querySelector('.js-cocktails');
 const listFavorites = document.querySelector('.js-favorites');
-const closeIcon = document.querySelector('.js-close-icon');
 
 const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
 
@@ -18,6 +17,7 @@ fetchFunction('margarita'); //usa el fetch para mostrar por defecto las margarit
 
 window.onload = function() { //cuando carga la página mantiene la lista de favoritos pintada
   const favoriteCocktails = JSON.parse(localStorage.getItem('favoriteCocktails')) || [];
+  listFavoritesData = favoriteCocktails;
   renderFavorites(favoriteCocktails);
 };
 
@@ -26,9 +26,9 @@ function renderCocktails(cocktails) {
   listCocktails.innerHTML='';
   for (const eachCocktail of cocktails) {
     if (eachCocktail.photo) {
-      listCocktails.innerHTML += `<li class="js-li-cocktail li-coktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
+      listCocktails.innerHTML += `<li class="js-li-cocktail li-coktails rightCocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
     } else {
-      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="
+      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails rightCocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="
 ./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/></li>`; //si no tiene foto te pone la seleccionada por defecto
     }
   }
@@ -83,7 +83,9 @@ function renderFavorites(cocktails) {
 ./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/><img src="./assets/images/circulo-cruzado.png" class="close-icon js-close-icon"></li>`; //si no tiene foto te pone la seleccionada por defecto
     }
   }
+  addEventToIcon();
 }
+
 
 //guardar los favoritos
 function handleClick(ev){
@@ -100,12 +102,14 @@ function handleClick(ev){
   if(indexCocktail===-1){
     listFavoritesData.push(selectedCocktail); //guardado en el listado con push
     localStorage.setItem('favoriteCocktails', JSON.stringify(listFavoritesData));//lo mete en el local storage
+    localStorage.getItem('favoriteCocktails');//mantiene favoritos en pantalla
   }else{
     listFavoritesData.splice(indexCocktail, 1); //elimina un elemento a partir de una posicion
     localStorage.setItem('favoriteCocktails', JSON.stringify(listFavoritesData)); // Almacena el array actualizado en el almacenamiento local
+    localStorage.getItem('favoriteCocktails'); //mantiene favoritos en pantalla
   }
   renderFavorites(listFavoritesData); //pinta favoritos
-  renderCocktails(listCocktailsData);
+
 }
 
 //función para que al hacer clic en el icono de la x borre el elemento de favoritos (se parece mucho a parte de la funcion anterior)
@@ -123,6 +127,13 @@ function closeFavs(ev){
   localStorage.removeItem('cocktails');//quita el item del local storage
 }
 
+function addEventToIcon(){//funcion para seleccionar cada icono x y pasarle el evento que llama a la funcion que cierra cada favorito
+  const closeIcon = document.querySelectorAll('.js-close-icon');
+  for(const icon of closeIcon){
+    icon.addEventListener('click',closeFavs);
+  }
+}
+
 
 //EVENTOS
 
@@ -130,5 +141,3 @@ function closeFavs(ev){
 btnSearch.addEventListener('click', handleClickBtn);
 //escucha del botón reset
 btnReset.addEventListener('click', handleResetBtn);
-//escucha sobre el icono de favoritos para quitar el item
-closeIcon.addEventListener('click',closeFavs);
