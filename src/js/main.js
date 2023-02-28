@@ -7,6 +7,7 @@ const btnSearch  = document.querySelector('.js-search-btn');
 const btnReset = document.querySelector('.js-reset-btn');
 const listCocktails = document.querySelector('.js-ul-cocktails');
 const listFavorites = document.querySelector('.js-ul-favorites');
+const logBtn = document.querySelector('.js-log-btn');
 
 const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
 
@@ -26,9 +27,9 @@ function renderCocktails(cocktails) {
   listCocktails.innerHTML='';
   for (const eachCocktail of cocktails) {
     if (eachCocktail.photo) {
-      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
+      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3><h4>${eachCocktail.category}</h4> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/></li>`;
     } else {
-      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3> <img src="
+      listCocktails.innerHTML += `<li class="js-li-cocktail li-cocktails" id="${eachCocktail.id}"><h3>${eachCocktail.name}</h3><h4>${eachCocktail.category}</h4> <img src="
 ./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/></li>`; //si no tiene foto te pone la seleccionada por defecto
     }
   }
@@ -43,7 +44,8 @@ function fetchFunction(cocktailName){
       listCocktailsData = data.drinks.map((drink) => ({//margaritas es el nombre que le ponemos por defecto ya que son solo margaritas lo que vamos a mostrar al iniciar la pagina
         name: drink.strDrink, //strDrink es el nombre del coctel dentro de la API
         photo: drink.strDrinkThumb, //strDrinkThumb es la foto del coctel dentro de la API
-        id: drink.idDrink //idDrink es el id del coctel dentro de la API
+        id: drink.idDrink, //idDrink es el id del coctel dentro de la API
+        category :drink.strCategory
       }));
       renderCocktails(listCocktailsData);
     });
@@ -140,6 +142,13 @@ function addEventToIcon(){//funcion para seleccionar cada icono x y pasarle el e
   }
 }
 
+function handleLogBtn(ev){
+  ev.preventDefault();
+  for(const eachCocktail of listCocktailsData){
+    console.log(eachCocktail.name);
+  }
+}
+
 
 //EVENTOS
 
@@ -147,3 +156,5 @@ function addEventToIcon(){//funcion para seleccionar cada icono x y pasarle el e
 btnSearch.addEventListener('click', handleClickBtn);
 //escucha del botón reset
 btnReset.addEventListener('click', handleResetBtn);
+
+logBtn.addEventListener('click', handleLogBtn);
