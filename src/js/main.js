@@ -86,7 +86,7 @@ function renderFavorites(cocktails) {
   listFavorites.innerHTML='';
   for (const eachCocktail of cocktails) {
     if (eachCocktail.photo) {
-      listFavorites.innerHTML += `<li class="js-li-fav selected" id="${eachCocktail.idDrink}"><h3 class="selectedTitle">${eachCocktail.name}</h3> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/><img src="./assets/images/circulo-cruzado.png" class="close-icon js-close-icon"></li>`;
+      listFavorites.innerHTML += `<li class="js-li-fav selected" id="${eachCocktail.idDrink}"><h3 class="selectedTitle">${eachCocktail.name}</h3><h4 class="selectedSubtitle">${eachCocktail.category}</h4> <img src="${eachCocktail.photo}" title="${eachCocktail.name}" class="imgCocktail"/><img src="./assets/images/circulo-cruzado.png" class="close-icon js-close-icon"></li>`;
     } else {
       listFavorites.innerHTML += `<li class="js-li-fav selected" id="${eachCocktail.idDrink}"><h3 class="selectedTitle">${eachCocktail.name}</h3> <img src="
 ./assets/images/default.png" title="${eachCocktail.name}" class="imgCocktail"/><img src="./assets/images/circulo-cruzado.png" class="close-icon js-close-icon"></li>`; //si no tiene foto te pone la seleccionada por defecto
@@ -157,4 +157,4 @@ btnSearch.addEventListener('click', handleClickBtn);
 //escucha del botón reset
 btnReset.addEventListener('click', handleResetBtn);
 
-logBtn.addEventListener('click', handleLogBtn);
+// logBtn.addEventListener('click', handleLogBtn);
