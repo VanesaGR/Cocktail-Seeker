@@ -1,4 +1,4 @@
-# Evaluación final Módulo 2
+# Cocktail Seeker
 
 
 This exam consists on a list of cocktails (maragaritas on the default column) that can be changed due to the user's interest. Cocktails can be selected to the favourites section and can be eliminated of this list.
