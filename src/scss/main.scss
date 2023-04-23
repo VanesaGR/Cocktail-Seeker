@@ -3,14 +3,29 @@
     margin-top: 0.5em;
 }
 
-.title-image{
-    width: 98vw;
-    margin-top: -10px;
+.page{
+    width: 150vw;
+}
+
+.header{
+    width: 100vw;
 }
 
 .search-form{
-    margin:2em; 
-    padding-left: 2em;
+    width: 100vw;
+}
+
+.search-title{
+    width: 100vw;
+}
+
+.title-image{
+    width: 110vw;
+    margin-top: -6.5%;
+
+    @media all and (min-width:768px){
+        margin-top: -3%;
+    }
 }
 
 .search-btn, .reset-btn{
@@ -20,26 +35,45 @@
     width: 10em;
     line-height: 40px;
     border-radius: 10px;
-    margin-left: 4em;
+    margin-left: 3em;
 }
 
 .input-search{
-    width: 50em;
+    width: 90vw;
     line-height: 40px;
     border-radius: 10px;
+    margin-left: 3em;
+}
+
+@media all and (min-width:768px){
+    .search-form{
+        margin-left: 2em;
+    }
 }
 
 .main-section{
     margin:4em;
+    margin-left: 3em;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;    
+    justify-content: space-between;  
+    width: 90vw;  
+
+    @media all and (min-width:768px){
+        width: 100vw;
+    }
 }
 
 .favorites, .cocktails{
     border: 4px solid #d9b9a0;
     width: 50%;
-    border-radius: 20px;    
+    border-radius: 20px;  
+}
+
+@media all and (min-width:768px){
+    .favorites{
+        margin-left: 2em;
+    }
 }
 
 .title-favorites, .title-cocktails {
@@ -65,7 +99,6 @@
 
 .js-li-cocktail, .js-li-fav{
     list-style: none;
-    padding-left: 2em;
     padding-bottom: 2em;
 }
 
@@ -99,3 +132,4 @@
 .rightCocktails h4{
     background-color: #9d7c62;
 }
+
